@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
+import { Github, Linkedin, Globe, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { theme } = useTheme();
@@ -9,19 +10,19 @@ export const Footer: React.FC = () => {
     {
       name: 'GitHub',
       url: 'https://github.com/nikosophoscode',
-      emoji: '🐙',
+      icon: Github,
       label: 'GitHub Repository',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/nikosophoscode',
-      emoji: '💼',
+      icon: Linkedin,
       label: 'LinkedIn Profile',
     },
     {
       name: 'Website',
       url: 'https://nikosophoscode.com',
-      emoji: '🌐',
+      icon: Globe,
       label: 'Personal Website',
     },
   ];
@@ -68,20 +69,23 @@ export const Footer: React.FC = () => {
 
         {/* Social Links */}
         <div className="flex justify-center gap-6 mb-8 pb-8 border-t border-white/20">
-          {socialLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 hover:scale-110 transform"
-              aria-label={link.label}
-              title={link.label}
-            >
-              <span className="text-2xl">{link.emoji}</span>
-              <span className="hidden sm:inline text-sm font-medium">{link.name}</span>
-            </a>
-          ))}
+          {socialLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/80 hover:text-white transition-all duration-300 hover:scale-125 transform hover:drop-shadow-lg"
+                aria-label={link.label}
+                title={link.label}
+              >
+                <Icon size={28} strokeWidth={1.5} />
+                <span className="hidden sm:inline text-sm font-medium">{link.name}</span>
+              </a>
+            );
+          })}
         </div>
 
         {/* Bottom Section */}
