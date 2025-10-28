@@ -4,6 +4,7 @@ import { useFavorites } from './hooks/useFavorites';
 import { useTheme } from './contexts/ThemeContext';
 import { Navigation } from './components/Navigation';
 import { ThemeSelector } from './components/ThemeSelector';
+import { Footer } from './components/Footer';
 import { RandomDogs } from './pages/RandomDogs';
 import { SearchDogs } from './pages/SearchDogs';
 import { Breeds } from './pages/Breeds';
@@ -61,6 +62,7 @@ function AppContent() {
         )}
       </main>
 
+      <Footer />
       <ThemeSelector />
     </div>
   );
