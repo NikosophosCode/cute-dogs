@@ -27,10 +27,14 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
     <nav className={`bg-gradient-to-r ${theme.colors.primary} shadow-lg sticky top-0 z-50`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
+          <button
+            onClick={() => onTabChange('random')}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300 cursor-pointer"
+            aria-label="Go to home"
+          >
             <span className="text-2xl md:text-3xl">🐶</span>
             <h1 className="text-2xl font-bold text-white">Perritos UwU</h1>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-2">
