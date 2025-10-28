@@ -65,11 +65,11 @@ export const SearchDogs: React.FC<SearchDogsProps> = ({ onFavoriteToggle, isFavo
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* Breed Select */}
             <div>
-              <label className="block text-rgb(15 33 109) font-semibold mb-2">Raza</label>
+              <label className="block text-white font-semibold mb-2">Raza</label>
               <select
                 value={selectedBreed}
                 onChange={(e) => setSelectedBreed(e.target.value ? Number(e.target.value) : '')}
-                className="w-full px-4 py-2 rounded-lg bg-white/20 text-white border border-white/30 focus:outline-none focus:border-white"
+                className="w-full px-4 py-2 rounded-lg bg-white/20 text-stone-950 border border-white/30 focus:outline-none focus:border-white"
               >
                 <option value="">Todas las razas</option>
                 {breeds.map((breed) => (
@@ -89,7 +89,7 @@ export const SearchDogs: React.FC<SearchDogsProps> = ({ onFavoriteToggle, isFavo
                 max="100"
                 value={limit}
                 onChange={(e) => setLimit(Number(e.target.value))}
-                className="w-full px-4 py-2 rounded-lg bg-white/20 text-white border border-white/30 focus:outline-none focus:border-white"
+                className="w-full px-4 py-2 rounded-lg bg-white/20 text-stone-950 border border-white/30 focus:outline-none focus:border-white"
               />
             </div>
 
@@ -99,7 +99,7 @@ export const SearchDogs: React.FC<SearchDogsProps> = ({ onFavoriteToggle, isFavo
               <select
                 value={order}
                 onChange={(e) => setOrder(e.target.value as 'RANDOM' | 'ASC' | 'DESC')}
-                className="w-full px-4 py-2 rounded-lg bg-white/20 text-white border border-white/30 focus:outline-none focus:border-white"
+                className="w-full px-4 py-2 rounded-lg bg-white/20 text-stone-950 border border-white/30 focus:outline-none focus:border-white"
               >
                 <option value="RANDOM">Aleatorio</option>
                 <option value="ASC">Ascendente</option>
