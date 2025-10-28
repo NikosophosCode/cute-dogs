@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
-import { Github, Linkedin, Globe, Heart } from 'lucide-react';
+import { Github, Linkedin, Globe } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { theme } = useTheme();
@@ -49,10 +49,8 @@ export const Footer: React.FC = () => {
             <ul className="text-white/80 text-sm space-y-2 text-center">
               <li>✨ Perros aleatorios</li>
               <li>🔍 Búsqueda por raza</li>
-              <li>📚 Catálogo completo</li>
               <li>❤️ Guardar favoritos</li>
               <li>🌙 Modo oscuro</li>
-              <li>🌐 Traducción automática</li>
             </ul>
           </div>
 
@@ -68,7 +66,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-6 mb-8 pb-8 border-t border-white/20">
+        <div className="flex justify-center gap-6 p-4 border-t border-white/20">
           {socialLinks.map((link) => {
             const Icon = link.icon;
             return (
