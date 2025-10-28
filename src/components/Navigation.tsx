@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface NavigationProps {
   activeTab: string;
@@ -8,6 +9,7 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, favoritesCount }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
 
   const tabs = [
     { id: 'random', label: '🎲 Aleatorio', icon: '🐕' },
@@ -22,7 +24,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
   };
 
   return (
-    <nav className="bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg sticky top-0 z-50">
+    <nav className={`bg-gradient-to-r ${theme.colors.primary} shadow-lg sticky top-0 z-50`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
@@ -38,7 +40,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
                 onClick={() => onTabChange(tab.id)}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'bg-white text-purple-600 shadow-lg'
+                    ? 'bg-white text-gray-900 shadow-lg'
                     : 'bg-white/20 text-white hover:bg-white/30'
                 }`}
               >
@@ -68,7 +70,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
                 onClick={() => handleTabClick(tab.id)}
                 className={`w-full px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-left ${
                   activeTab === tab.id
-                    ? 'bg-white text-purple-600 shadow-lg'
+                    ? 'bg-white text-gray-900 shadow-lg'
                     : 'bg-white/20 text-white hover:bg-white/30'
                 }`}
               >
