@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dog, Breed } from '../types';
 import { dogAPI } from '../services/api';
+import { useTheme } from '../contexts/ThemeContext';
 import { DogCard } from '../components/DogCard';
 
 interface SearchDogsProps {
@@ -9,6 +10,7 @@ interface SearchDogsProps {
 }
 
 export const SearchDogs: React.FC<SearchDogsProps> = ({ onFavoriteToggle, isFavorite }) => {
+  const { theme } = useTheme();
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<Breed[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<number | ''>('');
@@ -49,7 +51,7 @@ export const SearchDogs: React.FC<SearchDogsProps> = ({ onFavoriteToggle, isFavo
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 animate-gradient py-12">
+    <div className={`min-h-screen bg-gradient-to-br ${theme.colors.primary} animate-gradient py-12 ${theme.colors.background}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-2xl">

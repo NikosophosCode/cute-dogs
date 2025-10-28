@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Breed, Dog } from '../types';
 import { dogAPI } from '../services/api';
+import { useTheme } from '../contexts/ThemeContext';
 import { DogCard } from '../components/DogCard';
 
 interface BreedsProps {
@@ -8,12 +9,17 @@ interface BreedsProps {
   isFavorite: (dogId: string) => boolean;
 }
 
+const BREEDS_PER_PAGE = 10;
+
 export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) => {
+  const { theme } = useTheme();
   const [breeds, setBreeds] = useState<Breed[]>([]);
+  const [displayedBreeds, setDisplayedBreeds] = useState<Breed[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<Breed | null>(null);
   const [breedImages, setBreadImages] = useState<Dog[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const loadBreeds = async () => {
@@ -21,6 +27,8 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
       try {
         const allBreeds = await dogAPI.getAllBreeds();
         setBreeds(allBreeds);
+        setDisplayedBreeds(allBreeds.slice(0, BREEDS_PER_PAGE));
+        setCurrentPage(1);
       } catch (err) {
         setError('No se pudieron cargar las razas.');
         console.error(err);
@@ -30,6 +38,17 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
     };
     loadBreeds();
   }, []);
+
+  const loadMoreBreeds = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = nextPage * BREEDS_PER_PAGE;
+    const endIndex = startIndex + BREEDS_PER_PAGE;
+    const newBreeds = breeds.slice(0, endIndex);
+    setDisplayedBreeds(newBreeds);
+    setCurrentPage(nextPage);
+  };
+
+  const hasMoreBreeds = displayedBreeds.length < breeds.length;
 
   const handleBreedSelect = async (breed: Breed) => {
     setSelectedBreed(breed);
@@ -48,7 +67,7 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-500 via-teal-500 to-blue-500 animate-gradient py-12">
+    <div className={`min-h-screen bg-gradient-to-br ${theme.colors.primary} animate-gradient py-12 ${theme.colors.background}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-2xl">
@@ -63,9 +82,11 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
           {/* Breeds List */}
           <div className="lg:col-span-1">
             <div className="glass-effect rounded-2xl p-6 sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto">
-              <h3 className="text-white font-bold text-lg mb-4">Razas</h3>
+              <h3 className="text-white font-bold text-lg mb-4">
+                Razas ({displayedBreeds.length}/{breeds.length})
+              </h3>
               <div className="space-y-2">
-                {breeds.map((breed) => (
+                {displayedBreeds.map((breed) => (
                   <button
                     key={breed.id}
                     onClick={() => handleBreedSelect(breed)}
@@ -79,6 +100,14 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
                   </button>
                 ))}
               </div>
+              {hasMoreBreeds && (
+                <button
+                  onClick={loadMoreBreeds}
+                  className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-green-400 to-teal-400 text-white font-bold rounded-lg hover:from-green-500 hover:to-teal-500 transition-all duration-300 transform hover:scale-105 active:scale-95"
+                >
+                  ⬇️ Cargar más razas
+                </button>
+              )}
             </div>
           </div>
 
@@ -112,6 +141,12 @@ export const Breeds: React.FC<BreedsProps> = ({ onFavoriteToggle, isFavorite }) 
                       <div>
                         <p className="font-semibold text-white/80">Peso</p>
                         <p>{selectedBreed.weight.metric} kg</p>
+                      </div>
+                    )}
+                    {selectedBreed.height && (
+                      <div>
+                        <p className="font-semibold text-white/80">Altura</p>
+                        <p>{selectedBreed.height.metric} cm</p>
                       </div>
                     )}
                   </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Favorite, Dog } from '../types';
+import { useTheme } from '../contexts/ThemeContext';
 import { DogCard } from '../components/DogCard';
 
 interface FavoritesProps {
@@ -9,13 +10,14 @@ interface FavoritesProps {
 }
 
 export const Favorites: React.FC<FavoritesProps> = ({ favorites, onRemoveFavorite, isFavorite }) => {
+  const { theme } = useTheme();
   const dogs: Dog[] = favorites.map((fav) => ({
     id: fav.id,
     url: fav.url,
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-500 via-pink-500 to-purple-500 animate-gradient py-12">
+    <div className={`min-h-screen bg-gradient-to-br ${theme.colors.primary} animate-gradient py-12 ${theme.colors.background}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-2xl">
