@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dog } from './types';
 import { useFavorites } from './hooks/useFavorites';
+import { useTheme } from './contexts/ThemeContext';
 import { Navigation } from './components/Navigation';
+import { ThemeSelector } from './components/ThemeSelector';
 import { RandomDogs } from './pages/RandomDogs';
 import { SearchDogs } from './pages/SearchDogs';
 import { Breeds } from './pages/Breeds';
 import { Favorites } from './pages/Favorites';
 
-function App() {
+function AppContent() {
   const [activeTab, setActiveTab] = useState('random');
   const { favorites, addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { theme } = useTheme();
 
   const handleFavoriteToggle = (dog: Dog) => {
     if (isFavorite(dog.id)) {
@@ -20,7 +23,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className={`min-h-screen ${theme.colors.background} ${theme.mode === 'dark' ? 'dark' : ''}`}>
       <Navigation
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -57,8 +60,10 @@ function App() {
           />
         )}
       </main>
+
+      <ThemeSelector />
     </div>
   );
 }
 
-export default App;
+export default AppContent;
