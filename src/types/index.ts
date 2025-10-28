@@ -40,3 +40,11 @@ export interface SearchParams {
   order?: 'RANDOM' | 'ASC' | 'DESC';
   breed_id?: number;
 }
+
+export interface DogFact {
+  id: string;
+  type: string;
+  attributes: {
+    body: string;
+  };
+}
