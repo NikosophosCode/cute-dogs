@@ -34,6 +34,12 @@ export interface Favorite {
   addedAt: number;
 }
 
+export interface FavoriteFact {
+  id: string;
+  body: string;
+  savedAt: number;
+}
+
 export interface SearchParams {
   limit?: number;
   page?: number;
